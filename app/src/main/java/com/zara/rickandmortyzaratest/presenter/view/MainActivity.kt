@@ -3,6 +3,7 @@ package com.zara.rickandmortyzaratest.presenter.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,6 +24,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val screenSplash = installSplashScreen()
+        screenSplash.setKeepOnScreenCondition {
+            mainViewModel.isLoading
+        }
+
+
         setContentView(R.layout.activity_main)
 
         val navHostFragment =

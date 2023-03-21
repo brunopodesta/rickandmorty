@@ -35,16 +35,17 @@ class RickAndMortyViewModel @Inject constructor(
 
     var currentPage = 1
 
-    var filterGender : GenderFilter = GenderFilter.NONE
-    var filterStatus : StatusFilter = StatusFilter.NONE
+    var filterGender: GenderFilter = GenderFilter.NONE
+    var filterStatus: StatusFilter = StatusFilter.NONE
 
+    var isLoading = true
 
     init {
         getCharacters()
     }
 
-    fun movePage(increase : Boolean) {
-        if(increase) {
+    fun movePage(increase: Boolean) {
+        if (increase) {
             currentPage++
         } else {
             if (currentPage > 1) {
@@ -59,16 +60,24 @@ class RickAndMortyViewModel @Inject constructor(
             val showPrevious = currentPage > 1
             val showNext = currentPage < 42
             getCharacterListUseCase(currentPage).onEach { result ->
-                when(result) {
-                    is Resource.Success ->{
+                when (result) {
+                    is Resource.Success -> {
                         currentListCharacters.clear()
                         currentListCharacters.addAll(result.data ?: emptyList())
-                        _state.emit(CharacterListState.Success(filterList(result.data ?: emptyList()) , showPrevious, showNext))
+                        _state.emit(
+                            CharacterListState.Success(
+                                filterList(
+                                    result.data ?: emptyList()
+                                ), showPrevious, showNext
+                            )
+                        )
+                        isLoading = false
                     }
                     is Resource.Error -> {
                         _state.emit(CharacterListState.Error(result.message ?: "An error occurs"))
+                        isLoading = false
                     }
-                    is Resource.Loading ->{
+                    is Resource.Loading -> {
                         _state.emit(CharacterListState.Loading())
                     }
                 }
@@ -76,14 +85,13 @@ class RickAndMortyViewModel @Inject constructor(
         }
     }
 
-    fun onCharacterSelected(id : Int) {
+    fun onCharacterSelected(id: Int) {
         val character = currentListCharacters.find { it.id == id } ?: return
         _selectedCharacter.value = character
     }
 
 
-
-    fun setStatusFilter(status: StatusFilter){
+    fun setStatusFilter(status: StatusFilter) {
         filterStatus = status
     }
 
@@ -98,7 +106,7 @@ class RickAndMortyViewModel @Inject constructor(
         getCharacters()
     }
 
-    private fun filterList(characters : List<CharacterDomain>) : List<CharacterDomain> {
+    private fun filterList(characters: List<CharacterDomain>): List<CharacterDomain> {
         return if (isFiltering) {
             var filterList = characters
             if (filterStatus != StatusFilter.NONE) {
@@ -115,7 +123,6 @@ class RickAndMortyViewModel @Inject constructor(
             characters
         }
     }
-
 
 
 }

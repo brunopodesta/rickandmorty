@@ -67,7 +67,7 @@ class FilterFragment : BaseFragment() {
 
             btnApply.setOnClickListener {
                 mainViewModel.applyFilters()
-                navController.navigate(R.id.action_filterFragment_to_characterListFragment)
+                navController.popBackStack()
             }
         }
 
