@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/frameView"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameView">
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/characterImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="8dp"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        tools:src="@tools:sample/avatars" />
+
+
+    <LinearLayout
+        android:id="@+id/lytData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F2F2F7"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="70dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameView">
+
+        <TextView
+            android:id="@+id/txvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            tools:text="Alive" />
+
+
+        <TextView
+            android:id="@+id/txvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@color/black"
+            tools:text="Rick Sanchez" />
+
+        <TextView
+            android:id="@+id/txvSpecies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/light_grey"
+            tools:text="Human" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lytInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lytData">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/information"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@color/grey" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:text="@string/gender"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvGender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/light_grey"
+            tools:text="Male" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="@string/origin"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/light_grey"
+            tools:text="Earth (C-137)" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="@string/type"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/light_grey"
+            tools:text="Unknown" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="4dp"
+            android:text="@string/location"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/light_grey"
+            tools:text="Unknown" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

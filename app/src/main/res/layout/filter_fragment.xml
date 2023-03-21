@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:id="@+id/txvClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clear_filter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/lightPurple"
+        />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:text="@string/status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvClear"
+        tools:layout_editor_absoluteY="62dp" />
+
+    <RadioGroup
+        android:id="@+id/rgStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <RadioButton
+            android:id="@+id/rbAlive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alive"
+             />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <RadioButton
+            android:id="@+id/rbDead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dead" />
+
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <RadioButton
+            android:id="@+id/rbUnknown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown" />
+
+        <View
+            android:id="@+id/divider5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView2"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="5dp"
+        android:text="@string/gender"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgStatus" />
+
+    <RadioGroup
+        android:id="@+id/rgGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <RadioButton
+            android:id="@+id/rbMale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/male" />
+
+        <View
+            android:id="@+id/divider6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <RadioButton
+            android:id="@+id/rbFemale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/female"/>
+
+        <View
+            android:id="@+id/divider7"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <RadioButton
+            android:id="@+id/rbGenderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/genderless" />
+
+        <View
+            android:id="@+id/divider8"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_black" />
+
+        <RadioButton
+            android:id="@+id/rbgUnknown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/unknown" />
+
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btnApply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/apply"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgGender" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
