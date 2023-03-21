@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RickAndMortyZaraTest</string>
+    <string name="app_name">Rick And Morty</string>
     <string name="information">Information</string>
     <string name="gender">Gender</string>
     <string name="origin">Origin</string>
