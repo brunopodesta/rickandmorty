@@ -6,12 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.zara.rickandmortyzaratest.domain.Resource
 import com.zara.rickandmortyzaratest.domain.model.CharacterDomain
 import com.zara.rickandmortyzaratest.domain.use_case.GetCharacterListUseCase
-import com.zara.rickandmortyzaratest.domain.use_case.GetCharacterUseCase
 import com.zara.rickandmortyzaratest.presenter.state.CharacterListState
 import com.zara.rickandmortyzaratest.util.GenderFilter
 import com.zara.rickandmortyzaratest.util.StatusFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -19,10 +17,13 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * View Model class
+ */
+
 @HiltViewModel
 class RickAndMortyViewModel @Inject constructor(
-    private val getCharacterListUseCase: GetCharacterListUseCase,
-    private val getCharacterUseCase: GetCharacterUseCase
+    private val getCharacterListUseCase: GetCharacterListUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<CharacterListState>(CharacterListState.Loading())
@@ -33,16 +34,12 @@ class RickAndMortyViewModel @Inject constructor(
 
     var currentListCharacters = mutableListOf<CharacterDomain>()
 
-    var currentPage = 1
+    private var currentPage = 1
 
     var filterGender: GenderFilter = GenderFilter.NONE
     var filterStatus: StatusFilter = StatusFilter.NONE
 
     var isLoading = true
-
-    init {
-        getCharacters()
-    }
 
     fun movePage(increase: Boolean) {
         if (increase) {
@@ -55,8 +52,8 @@ class RickAndMortyViewModel @Inject constructor(
         getCharacters()
     }
 
-    private fun getCharacters() {
-        viewModelScope.launch(Dispatchers.IO) {
+    fun getCharacters() {
+        viewModelScope.launch {
             val showPrevious = currentPage > 1
             val showNext = currentPage < 42
             getCharacterListUseCase(currentPage).onEach { result ->
@@ -90,7 +87,6 @@ class RickAndMortyViewModel @Inject constructor(
         _selectedCharacter.value = character
     }
 
-
     fun setStatusFilter(status: StatusFilter) {
         filterStatus = status
     }
@@ -116,9 +112,7 @@ class RickAndMortyViewModel @Inject constructor(
             if (filterGender != GenderFilter.NONE) {
                 filterList = filterList.filter { it.gender == filterGender.gender }
             }
-
             filterList
-
         } else {
             characters
         }

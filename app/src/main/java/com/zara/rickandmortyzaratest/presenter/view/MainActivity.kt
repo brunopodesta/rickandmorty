@@ -39,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        mainViewModel.getCharacters()
     }
 
     override fun onSupportNavigateUp(): Boolean {
