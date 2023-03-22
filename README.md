@@ -4,6 +4,7 @@ The list can be filter by gender or status of the character
 
 The technologies used to create this app are:
 - Flow
+- LiveData
 - Retrofit
 - Coroutine
 - Jetpack Navigation
