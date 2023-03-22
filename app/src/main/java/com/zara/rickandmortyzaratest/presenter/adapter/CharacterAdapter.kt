@@ -35,15 +35,6 @@ class CharacterAdapter(private val onClickCallback: (Int) -> Unit) :
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
-    /*var characterList = ArrayList<CharacterDomain>()
-
-    fun setData(characters : List<CharacterDomain>) {
-        characterList.clear()
-        characterList.addAll(characters)
-        notifyDataSetChanged()
-    }*/
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(layoutInflater.inflate(R.layout.character_item, parent, false))

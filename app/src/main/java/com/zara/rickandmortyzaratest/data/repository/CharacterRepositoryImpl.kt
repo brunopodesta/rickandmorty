@@ -14,6 +14,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
+/**
+ * Class that implements CharacterRepository interface from Domain layer
+ */
+
 class CharacterRepositoryImpl @Inject constructor(val api: RickAndMortyApi) : CharacterRepository {
 
     override fun getCharactersList(page: Int): Flow<Resource<List<CharacterDomain>>> = flow {

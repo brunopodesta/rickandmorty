@@ -16,20 +16,19 @@ import com.zara.rickandmortyzaratest.databinding.CharacterDetailFragmentBinding
 
 class CharacterDetailFragment : BaseFragment() {
 
-    private var _binding: CharacterDetailFragmentBinding? = null
-    private val binding get() = _binding!!
+    private var binding: CharacterDetailFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = CharacterDetailFragmentBinding.inflate(
+        binding = CharacterDetailFragmentBinding.inflate(
             inflater,
             container,
             false
         )
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class CharacterDetailFragment : BaseFragment() {
 
         mainViewModel.selectedCharacter.observe(viewLifecycleOwner) { character ->
             (activity as AppCompatActivity?)!!.supportActionBar!!.title = character.name
-            binding.apply {
+            binding?.apply {
                 txvName.text = character.name
                 txvGender.text = character.gender
                 txvLocation.text = character.location.name
@@ -55,7 +54,7 @@ class CharacterDetailFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        binding = null
     }
 
 }

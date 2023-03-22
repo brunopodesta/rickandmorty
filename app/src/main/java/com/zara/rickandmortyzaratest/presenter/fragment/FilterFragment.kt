@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.zara.rickandmortyzaratest.R
 import com.zara.rickandmortyzaratest.databinding.FilterFragmentBinding
 import com.zara.rickandmortyzaratest.util.GenderFilter
 import com.zara.rickandmortyzaratest.util.StatusFilter
@@ -15,16 +14,15 @@ import com.zara.rickandmortyzaratest.util.StatusFilter
 
 class FilterFragment : BaseFragment() {
 
-    private var _binding: FilterFragmentBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FilterFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FilterFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FilterFragmentBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,36 +31,40 @@ class FilterFragment : BaseFragment() {
         setRadioDataFromGender(mainViewModel.filterGender)
         setRadioDataFromStatus(mainViewModel.filterStatus)
 
-        binding.apply {
+        binding?.apply {
 
             txvClear.setOnClickListener {
                 mainViewModel.setGenderFilter(GenderFilter.NONE)
                 mainViewModel.setStatusFilter(StatusFilter.NONE)
-                binding.rgStatus.clearCheck()
-                binding.rgGender.clearCheck()
+                rgStatus.clearCheck()
+                rgGender.clearCheck()
             }
 
             rgStatus.setOnCheckedChangeListener { radioGroup, idThatSelected ->
-                mainViewModel.setStatusFilter(
-                    when (idThatSelected) {
-                        binding.rbAlive.id -> StatusFilter.ALIVE
-                        binding.rbDead.id -> StatusFilter.DEAD
-                        binding.rbUnknown.id -> StatusFilter.UNKNOWN
-                        else -> StatusFilter.NONE
-                    }
-                )
+                binding?.let {
+                    mainViewModel.setStatusFilter(
+                        when (idThatSelected) {
+                            rbAlive.id -> StatusFilter.ALIVE
+                            rbDead.id -> StatusFilter.DEAD
+                            rbUnknown.id -> StatusFilter.UNKNOWN
+                            else -> StatusFilter.NONE
+                        }
+                    )
+                }
             }
 
             rgGender.setOnCheckedChangeListener { radioGroup, idThatSelected ->
-                mainViewModel.setGenderFilter(
-                    when (idThatSelected) {
-                        binding.rbFemale.id -> GenderFilter.FEMALE
-                        binding.rbMale.id -> GenderFilter.MALE
-                        binding.rbgUnknown.id -> GenderFilter.UNKNOWN
-                        binding.rbGenderless.id -> GenderFilter.GENDERLESS
-                        else -> GenderFilter.NONE
-                    }
-                )
+                binding?.let {
+                    mainViewModel.setGenderFilter(
+                        when (idThatSelected) {
+                            rbFemale.id -> GenderFilter.FEMALE
+                            rbMale.id -> GenderFilter.MALE
+                            rbgUnknown.id -> GenderFilter.UNKNOWN
+                            rbGenderless.id -> GenderFilter.GENDERLESS
+                            else -> GenderFilter.NONE
+                        }
+                    )
+                }
             }
 
             btnApply.setOnClickListener {
@@ -76,38 +78,42 @@ class FilterFragment : BaseFragment() {
 
     private fun setRadioDataFromStatus(statusFilter: StatusFilter) {
         if (statusFilter == StatusFilter.NONE) {
-            binding.rgStatus.clearCheck()
+            binding?.rgStatus?.clearCheck()
         } else {
-            binding.rgStatus.check(
-                when (statusFilter) {
-                    StatusFilter.ALIVE -> binding.rbAlive.id
-                    StatusFilter.DEAD -> binding.rbDead.id
-                    else -> binding.rbUnknown.id
-                }
-            )
+            when (statusFilter) {
+                StatusFilter.ALIVE -> binding?.rbAlive?.id
+                StatusFilter.DEAD -> binding?.rbDead?.id
+                else -> binding?.rbUnknown?.id
+            }?.let {
+                binding?.rgStatus?.check(
+                    it
+                )
+            }
         }
     }
 
 
     private fun setRadioDataFromGender(genderFilter: GenderFilter) {
         if (genderFilter == GenderFilter.NONE) {
-            binding.rgGender.clearCheck()
+            binding?.rgGender?.clearCheck()
         } else {
-            binding.rgGender.check(
-                when (genderFilter) {
-                    GenderFilter.MALE -> binding.rbMale.id
-                    GenderFilter.FEMALE -> binding.rbFemale.id
-                    GenderFilter.GENDERLESS -> binding.rbGenderless.id
-                    else -> binding.rbgUnknown.id
-                }
-            )
+            when (genderFilter) {
+                GenderFilter.MALE -> binding?.rbMale?.id
+                GenderFilter.FEMALE -> binding?.rbFemale?.id
+                GenderFilter.GENDERLESS -> binding?.rbGenderless?.id
+                else -> binding?.rbgUnknown?.id
+            }?.let {
+                binding?.rgGender?.check(
+                    it
+                )
+            }
         }
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        binding = null
     }
 
 

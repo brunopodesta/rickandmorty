@@ -7,6 +7,7 @@ import com.zara.rickandmortyzaratest.domain.Resource
 import com.zara.rickandmortyzaratest.domain.model.CharacterDomain
 import com.zara.rickandmortyzaratest.domain.use_case.GetCharacterListUseCase
 import com.zara.rickandmortyzaratest.presenter.state.CharacterListState
+import com.zara.rickandmortyzaratest.util.FINAL_PAGE
 import com.zara.rickandmortyzaratest.util.GenderFilter
 import com.zara.rickandmortyzaratest.util.StatusFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -41,6 +42,10 @@ class RickAndMortyViewModel @Inject constructor(
 
     var isLoading = true
 
+    /**
+     * Increase or Decrease page number to get Characters
+     */
+
     fun movePage(increase: Boolean) {
         if (increase) {
             currentPage++
@@ -52,10 +57,14 @@ class RickAndMortyViewModel @Inject constructor(
         getCharacters()
     }
 
+    /**
+     * Function to retrieve Character List
+     */
+
     fun getCharacters() {
         viewModelScope.launch {
             val showPrevious = currentPage > 1
-            val showNext = currentPage < 42
+            val showNext = currentPage < FINAL_PAGE
             getCharacterListUseCase(currentPage).onEach { result ->
                 when (result) {
                     is Resource.Success -> {
@@ -82,26 +91,43 @@ class RickAndMortyViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Set the character selected from the List
+     */
     fun onCharacterSelected(id: Int) {
         val character = currentListCharacters.find { it.id == id } ?: return
         _selectedCharacter.value = character
     }
 
+    /**
+     * Set the Status Filter
+     */
     fun setStatusFilter(status: StatusFilter) {
         filterStatus = status
     }
+
+    /**
+     * Set the Gender Filter
+     */
 
     fun setGenderFilter(gender: GenderFilter) {
         filterGender = gender
     }
 
-    var isFiltering = false
+    /**
+     * Indicates if  filter is needed.
+     */
+    private var isFiltering = false
 
     fun applyFilters() {
         isFiltering = !(filterStatus == StatusFilter.NONE && filterGender == GenderFilter.NONE)
         getCharacters()
     }
 
+    /**
+     * Filter the list according to the filters set in the Filter Screen.
+     * If no filter applied returns the original list
+     */
     private fun filterList(characters: List<CharacterDomain>): List<CharacterDomain> {
         return if (isFiltering) {
             var filterList = characters

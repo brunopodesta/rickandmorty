@@ -20,33 +20,33 @@ import kotlinx.coroutines.flow.collectLatest
 
 class CharacterListFragment : BaseFragment() {
 
-    private var _binding : CharacterListFragmentBinding? = null
-    private val binding get() = _binding!!
+    private var binding: CharacterListFragmentBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = CharacterListFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = CharacterListFragmentBinding.inflate(inflater, container, false)
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        val characterListAdapter = CharacterAdapter(){ id ->
+        val characterListAdapter = CharacterAdapter() { id ->
             mainViewModel.onCharacterSelected(id)
             navController.navigate(R.id.action_characterListFragment_to_characterDetailFragment)
         }
 
-        binding.charactersRV.apply {
-            adapter = characterListAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+        binding?.apply {
 
-        binding.apply {
+            charactersRV.apply {
+                adapter = characterListAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
             btnNext.setOnClickListener {
                 mainViewModel.movePage(true)
             }
@@ -58,34 +58,38 @@ class CharacterListFragment : BaseFragment() {
 
         lifecycleScope.launchWhenStarted {
             mainViewModel.state.collectLatest { state ->
-
-                when(state){
+                when (state) {
                     is CharacterListState.Success -> {
-                        binding.apply {
-                            charactersRV.visibility = View.VISIBLE
+                        binding?.apply {
+                            setComponentVisibility(
+                                rvVisibility = View.VISIBLE,
+                                errorTextVisibility = View.GONE,
+                                progressVisibility = View.GONE
+                            )
                             btnPrevious.isEnabled = state.showPrevious
                             btnNext.isEnabled = state.showNext
-                            pgLoading.visibility = View.GONE
-                            tvErrorMessage.visibility = View.GONE
                         }
                         characterListAdapter.characterList = state.dataList
                     }
-                    is CharacterListState.Error ->{
-                        binding.apply {
-                            tvErrorMessage.visibility = View.VISIBLE
+                    is CharacterListState.Error -> {
+                        binding?.apply {
+                            setComponentVisibility(
+                                errorTextVisibility = View.VISIBLE,
+                                progressVisibility = View.GONE,
+                                rvVisibility = View.GONE
+                            )
                             tvErrorMessage.text = state.error
-                            charactersRV.visibility = View.GONE
-                            pgLoading.visibility = View.GONE
                         }
                     }
-                    is CharacterListState.Loading ->{
-                        binding.apply {
-                            pgLoading.visibility = View.VISIBLE
-                            tvErrorMessage.visibility = View.GONE
-                            charactersRV.visibility = View.GONE
+                    is CharacterListState.Loading -> {
+                        binding?.apply {
+                            setComponentVisibility(
+                                progressVisibility = View.VISIBLE,
+                                errorTextVisibility = View.GONE,
+                                rvVisibility = View.GONE
+                            )
                         }
                     }
-
                 }
             }
         }
@@ -93,7 +97,27 @@ class CharacterListFragment : BaseFragment() {
         setMenu()
     }
 
-    fun setMenu() {
+    /**
+     * Function to Show or Hide components according to the State
+     */
+
+    private fun setComponentVisibility(
+        rvVisibility: Int,
+        errorTextVisibility: Int,
+        progressVisibility: Int
+    ) {
+        binding?.apply {
+            pgLoading.visibility = progressVisibility
+            tvErrorMessage.visibility = errorTextVisibility
+            charactersRV.visibility = rvVisibility
+        }
+    }
+
+    /**
+     * Set Filter menu to access to Filter Screen
+     */
+
+    private fun setMenu() {
 
         val menuHost: MenuHost = requireActivity()
 
@@ -119,7 +143,13 @@ class CharacterListFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        binding = null
     }
 
+}
+
+enum class UIState() {
+    SUCCESS(),
+    ERROR(),
+    LOADING()
 }
